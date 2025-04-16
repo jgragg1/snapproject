@@ -45,19 +45,23 @@ class Monster {
 let currentTypeFilter = "all";
 // This is an array of strings (TV show titles)
 let monsters = [
-       new  Monster("Goblin", "Humanoid", 7, 15, FRESH_PRINCE_URL),
-    new Monster("Goblin", "Humanoid", 2, 15, FRESH_PRINCE_URL),
-    new Monster("Goblin", "Humanoid", 7, 15, FRESH_PRINCE_URL),
-  
-    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
-    new Monster("Goblin", "Humanoid", 7, 15, FRESH_PRINCE_URL),
-    new Monster("Goblin", "Humanoid", 2, 15, FRESH_PRINCE_URL),
-    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
-
-    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
-    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
-    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL)
+    new Monster("Goblin", "Humanoid", 7, 15, "https://th.bing.com/th/id/OIP.dbJcAL84XynbkJB8PpWWQAHaKs?rs=1&pid=ImgDetMain"),
+    new Monster("Owlbear", "Monstrosity", 59, 13, "https://www.dndbeyond.com/avatars/thumbnails/30834/185/1000/1000/638063883093825018.png"),
+    new Monster("Skeleton", "Undead", 13, 13, "https://www.dndbeyond.com/avatars/thumbnails/30835/849/1000/1000/638063922565505819.png"),
+    new Monster("Mimic", "Monstrosity", 58, 12, "https://www.dndbeyond.com/avatars/thumbnails/30833/408/1000/1000/638063863232165584.png"),
+    new Monster("Troll", "Giant", 84, 15, "https://www.dndbeyond.com/avatars/thumbnails/30836/144/1000/1000/638063929586218907.png"),
+    new Monster("Gelatinous Cube", "Ooze", 84, 6, "https://www.dndbeyond.com/avatars/thumbnails/30834/149/1000/1000/638063882505895317.png"),
+    new Monster("Wraith", "Undead", 67, 13, "https://www.dndbeyond.com/avatars/thumbnails/30836/510/1000/1000/638063938653309509.png"),
+    new Monster("Beholder", "Aberration", 180, 18, "https://media.nichegamer.com/wp-content/uploads/2024/05/beholder-5-9-2024-cropped.jpg"),
+    new Monster("Kobold", "Humanoid", 5, 12, "https://www.dndbeyond.com/avatars/thumbnails/30832/207/1000/1000/638063832924455756.png"),
+    new Monster("Gnoll", "Humanoid", 22, 15, "https://www.dndbeyond.com/avatars/thumbnails/30784/505/1000/1000/638062044385041691.png"),
+    new Monster("Banshee", "Undead", 58, 12, "https://www.dndbeyond.com/avatars/thumbnails/30761/972/1000/1000/638061101973584758.png"),
+    new Monster("Anceint Dragon", "Dragon", 546, 22, "https://www.dndbeyond.com/avatars/thumbnails/30782/405/1000/1000/638061961232915183.png"),
+    new Monster("Dire Wolf", "Beast", 37, 14, "https://www.dndbeyond.com/avatars/thumbnails/16/484/1000/1000/636376300478361995.jpeg"),
+    new Monster("Shadow", "Undead", 16, 12, "https://www.dndbeyond.com/avatars/thumbnails/30835/825/1000/1000/638063922274815873.png"),
+    new Monster("Mind Flayer", "Aberration", 71, 15, "https://media-waterdeep.cursecdn.com/attachments/thumbnails/3/505/952/952/mind-flayer-mm.png")
 ];
+
 // Your final submission should have much more data than this, and
 // you should use more than just an array of strings to store it all.
 
@@ -105,7 +109,7 @@ function editCardContent(card, newTitle, newImageURL,monster) {
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", () => {
     showCards(monsters); // your original render
-
+    showMonsterNames();
     document.getElementById("type-filter").addEventListener("change", function (e) {
         currentTypeFilter = e.target.value;
         applyFilter();
