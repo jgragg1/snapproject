@@ -23,49 +23,65 @@
  *
  */
 
+
+const CARDS_PER_PAGE = 3; // card 
+let currentPage = 0; // Current page
 const FRESH_PRINCE_URL =
   "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
 const CURB_POSTER_URL =
   "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
 const EAST_LOS_HIGH_POSTER_URL =
   "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
+class Monster {
+    constructor(name, type, hp, ac, image) {
+        this.name = name;
+        this.type = type;
+        this.hitPoints = hp;
+        this.armorClass = ac;
+        this.image = image;
 
+    }
+}
+let currentTypeFilter = "all";
 // This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
+let monsters = [
+       new  Monster("Goblin", "Humanoid", 7, 15, FRESH_PRINCE_URL),
+    new Monster("Goblin", "Humanoid", 2, 15, FRESH_PRINCE_URL),
+    new Monster("Goblin", "Humanoid", 7, 15, FRESH_PRINCE_URL),
+  
+    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
+    new Monster("Goblin", "Humanoid", 7, 15, FRESH_PRINCE_URL),
+    new Monster("Goblin", "Humanoid", 2, 15, FRESH_PRINCE_URL),
+    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
+
+    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
+    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL),
+    new Monster("Owlbear", "Beast", 59, 13, CURB_POSTER_URL)
 ];
 // Your final submission should have much more data than this, and
 // you should use more than just an array of strings to store it all.
 
 // This function adds cards the page to display the data in the array
-function showCards() {
-  const cardContainer = document.getElementById("card-container");
-  cardContainer.innerHTML = "";
-  const templateCard = document.querySelector(".card");
+function showCards(monsterslist) {
+    const cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = "";
+    const templateCard = document.querySelector(".card");
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
+    // PAGINATION: figure out which slice of monsters to show
+    const start = currentPage * CARDS_PER_PAGE;
+    const end = start + CARDS_PER_PAGE;
+    const paginatedMonsters = monsterslist.slice(start, end);
 
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
+    for (let monster of paginatedMonsters) {
+        const imageURL = monster.image;
+        const title = monster.name;
+        const nextCard = templateCard.cloneNode(true);
+        editCardContent(nextCard, title, imageURL, monster);
+        cardContainer.appendChild(nextCard);
     }
-
-    const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
-    cardContainer.appendChild(nextCard); // Add new card to the container
-  }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
+function editCardContent(card, newTitle, newImageURL,monster) {
   card.style.display = "block";
 
   const cardHeader = card.querySelector("h2");
@@ -74,7 +90,12 @@ function editCardContent(card, newTitle, newImageURL) {
   const cardImage = card.querySelector("img");
   cardImage.src = newImageURL;
   cardImage.alt = newTitle + " Poster";
-
+    const bulletList = card.querySelector("ul");
+    bulletList.innerHTML = `
+  <li>HP: ${monster.hitPoints}</li>
+  <li>AC: ${monster.armorClass}</li>
+  <li>Type: ${monster.type}</li>
+`;
   // You can use console.log to help you debug!
   // View the output by right clicking on your website,
   // select "Inspect", then click on the "Console" tab
@@ -82,16 +103,128 @@ function editCardContent(card, newTitle, newImageURL) {
 }
 
 // This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
+document.addEventListener("DOMContentLoaded", () => {
+    showCards(monsters); // your original render
+
+    document.getElementById("type-filter").addEventListener("change", function (e) {
+        currentTypeFilter = e.target.value;
+        applyFilter();
+    });
+    
+
+
+    document.getElementById("next-button").addEventListener("click", () => {
+        const totalPages = Math.ceil(getFilteredMonsters().length / CARDS_PER_PAGE);
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            applyFilter(); // Refresh current filtered view
+        }
+    });
+
+    document.getElementById("previous-button").addEventListener("click", () => {
+        if (currentPage > 0) {
+            currentPage--;
+            applyFilter(); // Refresh current filtered view
+        }
+    });
+
+    ; document.getElementById("sort-by").addEventListener("change", function (e) {
+        const sortBy = e.target.value;
+
+
+        
+        let sorted = [...monsters]; // copy the array
+
+        if (sortBy === "hp") {
+            sorted.sort((a, b) => b.hitPoints - a.hitPoints);
+        } else if (sortBy === "ac") {
+            sorted.sort((a, b) => b.armorClass - a.armorClass);
+        } else if (sortBy === "name") {
+            sorted.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortBy === "hp1") {
+            sorted.sort((a, b) => b.hitPoints - a.hitPoints);
+            sorted.reverse();
+        }
+        else if (sortBy === "ac1") {
+            sorted.sort((a, b) => b.armorClass - a.armorClass);
+            sorted.reverse();
+        } else if (sortBy === "name1") {
+            sorted.sort((a, b) => a.name.localeCompare(b.name));
+            sorted.reverse()
+        }
+
+        showCards(sorted);
+    });
+});
+
 
 function quoteAlert() {
   console.log("Button Clicked!");
   alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
+    "goblin"
   );
 }
+function applyFilter() {
+    let filteredMonsters = monsters;
 
-function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
+    if (currentTypeFilter !== "all") {
+        filteredMonsters = monsters.filter(monster => monster.type === currentTypeFilter);
+    }
+
+    showCards(filteredMonsters);
 }
+function getFilteredMonsters() {
+    if (currentTypeFilter === "all") {
+        return monsters;
+    } else {
+        return monsters.filter(monster => monster.type === currentTypeFilter);
+    }
+}
+function removeLastCard() {
+    monsters.pop(); // Remove last item in titles array
+    applyFilter(); // Call showCards again to refresh
+}
+// Function to display the list of all monster names
+function showMonsterNames() {
+    const nameListContainer = document.getElementById("name-list");
+    nameListContainer.innerHTML = ""; // Clear the existing list
+
+    // Loop through the monsters array and add each monster name to the list
+    for (let monster of monsters) {
+        const listItem = document.createElement("li");
+        listItem.textContent = monster.name; // Set the monster name
+        nameListContainer.appendChild(listItem); // Add the name to the list
+    }
+}
+
+// Call this function when the page loads, or whenever monsters are added
+
+
+
+
+document.getElementById("add-monster-form").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent page refresh
+
+    // Grab form values
+    const name = document.getElementById("monster-name").value;
+    const type = document.getElementById("monster-type").value;
+    const hitPoints = parseInt(document.getElementById("monster-hp").value);
+    const armorClass = parseInt(document.getElementById("monster-ac").value);
+    const imageURL = document.getElementById("monster-image").value;
+
+    // Create and add new monster
+    const newMonster = new Monster(name, type, hitPoints, armorClass, imageURL);
+    monsters.unshift(newMonster);
+
+    // Reset filters and page
+    currentTypeFilter = "all";
+    currentPage = 0;
+
+    // Update UI
+    applyFilter();       // Re-renders filtered view
+    showMonsterNames();  // Updates list of names
+    e.target.reset();    // Clears form
+
+    // Scroll to cards
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});

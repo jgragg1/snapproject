@@ -1,70 +1,278 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-.main-header {
-  background-color: rgba(0, 0, 0, 0.3);
-  padding-bottom: 10px;
-}
+    .main-header {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding-bottom: 10px;
+    }
 
-.title {
-  text-align: center;
-  margin: 0;
-  font-size: 8em;
-  font-family: "Helvetica";
-  font-weight: normal;
-  color: white;
-}
+    .title {
+      text-align: center;
+      margin: 0;
+      font-size: 8em;
+      font-family: "Helvetica";
+      font-weight: normal;
+      color: white;
+    }
 
-#card-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-}
+    #card-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
 
-.card {
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 5px;
-}
+    .card {
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 5px;
+    }
 
-.card-content {
-  padding: 20px;
-  font-family: "Verdana";
-  color: #777;
-}
+    .card-content {
+      padding: 20px;
+      font-family: "Verdana";
+      color: #777;
+    }
 
-.card-content h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
+    .card-content h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
 
-.card img {
-  width: 100%;
-  height: auto;
-}
+    .card img {
+      width: 100%;
+      height: auto;
+    }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: 10px;
-}
+    .footer {
+      display: flex;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+    }
 
-button {
-  text-align: center;
-  background-color: #666;
-  border: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 40px;
-  border-radius: 10px;
-  color: white;
-  font-size: 22px;
-  cursor: pointer;
-  margin: 5px;
-}
+    button {
+      text-align: center;
+      background-color: #666;
+      border: none;
+      padding-left: 10px;
+      padding-right: 10px;
+      height: 40px;
+      border-radius: 10px;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+
+    .pagination-controls {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    button {
+        padding: 0.7rem 1.5rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border-radius: 25px; /* Rounded buttons */
+        border: none;
+        background-color: #007bff;
+        color: white;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+
+    button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 8px;
+        border: none;
+        background-color: #444;
+        color: white;
+        transition: background-color 0.3s;
+    }
+
+        button:hover {
+            background-color: #666;
+        }
+
+    .card {
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Round the corners more */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: scale(1.05); /* Zoom in slightly */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Make the shadow more pronounced */
+        }
+
+        .card img {
+            border-top-left-radius: 10px; /* Round the top corners of the image */
+            border-top-right-radius: 10px;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover; /* Ensure the image covers the area without stretching */
+        }
+
+    .card-content {
+        padding: 15px;
+        font-family: 'Verdana', sans-serif;
+        color: #333;
+    }
+
+
+    .title {
+        text-align: center;
+        margin: 50px 0;
+        font-size: 6em; /* Slightly smaller to fit better */
+        font-family: 'Arial', sans-serif; /* Clean, modern font */
+        font-weight: bold;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .card-content h2 {
+        margin-top: 0;
+        font-size: 22px;
+        font-weight: bold;
+        color: #444;
+        text-align: center;
+    }
+
+    .card-content ul {
+        list-style-type: none; /* Remove default bullets */
+        padding: 0;
+        margin-top: 15px;
+    }
+
+    .card-content li {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #555;
+    }
+
+        .card-content li:last-child {
+            margin-bottom: 0;
+        }
+
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+    }
+
+        .footer button {
+            background-color: #28a745; /* Different color for footer buttons */
+            border-radius: 30px; /* More rounded buttons */
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+            .footer button:hover {
+                background-color: #218838;
+            }
+
+        .footer select {
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-left: 20px;
+            border: 1px solid #ccc;
+            background-color: #f8f9fa;
+        }
+
+            .footer select:hover {
+                border-color: #007bff;
+            }
+
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(to bottom right, #f0f4f7, #d9e2ec); /* Soft gradient background */
+    }
+
+    #card-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 20px auto;
+        max-width: 90%;
+    }
+
+    .add-monster-form {
+        background-color: #ffffff;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .add-monster-form input,
+        .add-monster-form select {
+            padding: 8px;
+            margin-bottom: 15px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .add-monster-form button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .add-monster-form button:hover {
+                background-color: #218838;
+            }
+
+
+    h1, h2, h3, p {
+        margin: 0;
+        padding: 0;
+    }
+
+    #monster-name-list ul {
+        padding-left: 0;
+    }
+
+    #monster-name-list li {
+        padding: 8px 0;
+        font-size: 1.1rem;
+        list-style-type: none;
+        border-bottom: 1px solid #eee;
+    }
