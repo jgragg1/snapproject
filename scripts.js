@@ -24,8 +24,8 @@
  */
 
 
-const CARDS_PER_PAGE = 3; // card 
-let currentPage = 0; // Current page
+const CARDS_PER_PAGE = 3;
+let currentPage = 0; 
 const FRESH_PRINCE_URL =
   "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
 const CURB_POSTER_URL =
@@ -71,7 +71,7 @@ function showCards(monsterslist) {
     cardContainer.innerHTML = "";
     const templateCard = document.querySelector(".card");
 
-    // PAGINATION: figure out which slice of monsters to show
+
     const start = currentPage * CARDS_PER_PAGE;
     const end = start + CARDS_PER_PAGE;
     const paginatedMonsters = monsterslist.slice(start, end);
@@ -108,7 +108,7 @@ function editCardContent(card, newTitle, newImageURL,monster) {
 
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", () => {
-    showCards(monsters); // your original render
+    showCards(monsters); 
     showMonsterNames();
     document.getElementById("type-filter").addEventListener("change", function (e) {
         currentTypeFilter = e.target.value;
@@ -121,14 +121,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalPages = Math.ceil(getFilteredMonsters().length / CARDS_PER_PAGE);
         if (currentPage < totalPages - 1) {
             currentPage++;
-            applyFilter(); // Refresh current filtered view
+            applyFilter();
         }
     });
 
     document.getElementById("previous-button").addEventListener("click", () => {
         if (currentPage > 0) {
             currentPage--;
-            applyFilter(); // Refresh current filtered view
+            applyFilter(); 
         }
     });
 
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         
-        let sorted = [...monsters]; // copy the array
+        let sorted = [...monsters]; 
 
         if (sortBy === "hp") {
             sorted.sort((a, b) => b.hitPoints - a.hitPoints);
@@ -185,50 +185,49 @@ function getFilteredMonsters() {
     }
 }
 function removeLastCard() {
-    monsters.pop(); // Remove last item in titles array
-    applyFilter(); // Call showCards again to refresh
+    monsters.pop(); 
+    applyFilter(); 
 }
-// Function to display the list of all monster names
 function showMonsterNames() {
     const nameListContainer = document.getElementById("name-list");
-    nameListContainer.innerHTML = ""; // Clear the existing list
+    nameListContainer.innerHTML = ""; 
 
-    // Loop through the monsters array and add each monster name to the list
+  
     for (let monster of monsters) {
         const listItem = document.createElement("li");
-        listItem.textContent = monster.name; // Set the monster name
-        nameListContainer.appendChild(listItem); // Add the name to the list
+        listItem.textContent = monster.name; 
+        nameListContainer.appendChild(listItem); 
     }
 }
 
-// Call this function when the page loads, or whenever monsters are added
+
 
 
 
 
 document.getElementById("add-monster-form").addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent page refresh
+    e.preventDefault();
 
-    // Grab form values
+   
     const name = document.getElementById("monster-name").value;
     const type = document.getElementById("monster-type").value;
     const hitPoints = parseInt(document.getElementById("monster-hp").value);
     const armorClass = parseInt(document.getElementById("monster-ac").value);
     const imageURL = document.getElementById("monster-image").value;
 
-    // Create and add new monster
+    
     const newMonster = new Monster(name, type, hitPoints, armorClass, imageURL);
     monsters.unshift(newMonster);
 
-    // Reset filters and page
+    
     currentTypeFilter = "all";
     currentPage = 0;
 
-    // Update UI
-    applyFilter();       // Re-renders filtered view
-    showMonsterNames();  // Updates list of names
-    e.target.reset();    // Clears form
+ 
+    applyFilter();
+    showMonsterNames(); 
+    e.target.reset();   
 
-    // Scroll to cards
+   
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
